@@ -1,2 +1,2 @@
-# gao
-Example of a pure convection in OpenFOAM
+# Example of a pure convection in OpenFOAM
+sigrun and mutirun
