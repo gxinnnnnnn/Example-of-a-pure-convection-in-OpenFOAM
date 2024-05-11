@@ -1,0 +1,40 @@
+#!/bin/bash
+#!/bin/sh
+foamCleanTutorials
+mkdir sol0
+blockMesh
+solver=scalarTransportFoam
+
+#################################################################
+cp system/schemes0/fvSchemes0 system/fvSchemes 
+$solver | tee log0
+postProcess -func sampleDict -latestTime
+cp postProcessing/sampleDict/5/line_centreProfile_T.xy sol0/line_centreProfile_T.xy.0
+foamListTimes -noZero -rm
+#################################################################
+#################################################################
+cp system/schemes0/fvSchemes1 system/fvSchemes 
+$solver | tee log1
+postProcess -func sampleDict -latestTime
+cp postProcessing/sampleDict/5/line_centreProfile_T.xy sol0/line_centreProfile_T.xy.1
+foamListTimes -noZero -rm
+#################################################################
+###############################################################
+cp system/schemes0/fvSchemes2 system/fvSchemes 
+$solver | tee log2
+postProcess -func sampleDict -latestTime
+cp postProcessing/sampleDict/5/line_centreProfile_T.xy sol0/line_centreProfile_T.xy.2
+foamListTimes -noZero -rm
+#################################################################
+###############################################################
+cp system/schemes0/fvSchemes3 system/fvSchemes 
+$solver | tee log3
+postProcess -func sampleDict -latestTime
+cp postProcessing/sampleDict/5/line_centreProfile_T.xy sol0/line_centreProfile_T.xy.3
+foamListTimes -noZero -rm
+#################################################################
+./p1
+
+
+
+#------------------------------------------------------------------------------ 

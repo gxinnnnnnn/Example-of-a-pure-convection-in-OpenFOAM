@@ -1,0 +1,25 @@
+#!/bin/bash
+#!/bin/sh
+cd ${0%/*} || exit 1    # Run from this directory
+
+graphName="T.png"
+resolution="800,600"
+
+gnuplot<<EOF
+set terminal pngcairo enhanced size ${resolution}
+set output "$graphName"
+
+set xlabel 'Y'
+set ylabel 'T'
+set xrange[0.2:0.8]
+set yrange[-0.1:1.1]
+set xtics 0,0.1,1. 
+plot [][] \
+ 'scripts/sol_exact/exact.txt' u 1:2 w l lt 1 lc 'black' lw 1.5 title 'Analytical solution', \
+ 'sol0/line_centreProfile_T.xy.0' u 1:2 w l lt 1 lc rgb 'blue' lw 2 title 'MUSCL', \
+ 'sol0/line_centreProfile_T.xy.1' u 1:2 w l lt 1 lc rgb 'red' lw 2 title 'Minmod', \
+ 'sol0/line_centreProfile_T.xy.2' u 1:2 w l lt 1 lc rgb 'green' lw 2 title 'upwind', \
+ 'sol0/line_centreProfile_T.xy.3' u 1:2 w l lt 1 lc rgb 'yellow' lw 2 title 'vanleer'
+pause -1
+EOF
+#------------------------------------------------------------------------------ 
